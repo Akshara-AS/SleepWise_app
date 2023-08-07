@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SleepWise : Harnessing ML to Predict Sleep Disorders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #caf0f8;
+        }
+
+        .container {
+            max-width: 550px;
+            margin: 0 auto;
+            padding: 30px;
+            padding-top: 10px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-heading {
+            text-align: center;
+            font-size: 24px;
+            color: #ff0084;
+            margin-bottom: 30px;
+            margin-top: 0%;
+            
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333333;
+        }
+
+        input[type="text"],
+        select,
+        input[type="number"],
+        input[type="range"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            margin-bottom: 25px;
+            box-sizing: border-box;
+        }
+
+        
+
+        .submit-btn {
+            display: block;
+            margin-top: 10px auto;
+            margin: auto;
+            background-color: #023e8a;
+            color: #ffffff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            opacity: 90%;
+        }
+
+        .range-value {
+            text-align: center;
+            font-weight: bold;
+            color: #023e8a;
+        }
+
+        .blood-pressure-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .blood-pressure-input {
+            flex: 1;
+            margin-right: 5px;
+            text-align: center;
+        }
+
+        .slash {
+            font-size: 40px;
+            font-weight: 100;
+            padding: 5px 5px;
+            color: #000000;
+        }
+        .header-image {
+            text-align: center;
+            
+        }
+
+        .header-image img {
+            max-width: 50%;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="header-image">
+            <img src="https://media.istockphoto.com/id/1057675454/vector/sleeping-boy-with-teddy-bear.jpg?s=612x612&w=0&k=20&c=qovCk0lxqGKRw7WyBJmP2T1x2JnwI40OBpOk5TgP0kA=" alt="Image Description">
+        </div>
+
+        <h1 class="form-heading">User Input Form</h1>
+        
+        <form action="result" method="POST">
+            {% csrf_token %}
+            <label for="name">Name :</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="gender">Gender :</label>
+            <select id="gender" name="gender">
+                <option value="" disabled selected>Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Others">Others</option>
+            </select>
+
+            <label for="age">Age :</label>
+            <input type="number" id="age" name="age" min="1" max="100" required>
+
+            <label for="occupation">Occupation :</label>
+            <select id="occupation" name="occupation">
+                <option value="" disabled selected>Select Occupation</option>
+                <option value="Software Engineer">Software Engineer</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Sales Representative">Sales Representative</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Nurse">Nurse</option>
+                <option value="Engineer">Engineer</option>
+                <option value="Accountant">Accountant</option>
+                <option value="Scientist">Scientist</option>
+                <option value="Lawyer">Lawyer</option>
+                <option value="Salesperson">Salesperson</option>
+                <option value="Manager">Manager</option>
+                <option value="Others">Others</option>
+            </select>
+
+            <label for="weight">Weight (kg) :</label>
+            <input type="number" id="weight" name="weight" min="1" required>
+
+            <label for="height">Height (cm) :</label>
+            <input type="number" id="height" name="height" min="1" required>
+
+            <label for="heartRate">Heart Rate (bpm) :</label>
+            <input type="number" id="heartRate" name="heartRate" min="1" required>
+
+            <label for="bloodPressure">Blood Pressure (systolic/diastolic) :</label>
+            <div class="blood-pressure-container">
+                <input type="number" class="blood-pressure-input" name="systolicPressure" min="80" max="200" required>
+                <span class="slash">/</span>
+                <input type="number" class="blood-pressure-input" name="diastolicPressure" min="40" max="120" required>
+            </div>         
+
+            <label for="activityLevel">Physical Activity Level (minutes per day) :</label>
+            <input type="number" id="activityLevel" name="activityLevel" min="1" max="1440" required>
+
+            <label for="dailySteps">Daily Steps (step count) :</label>
+            <input type="number" id="dailySteps" name="dailySteps" min="1" required>
+
+            <label for="sleepDuration">Sleep Duration (hours) :</label>
+            <input type="number" id="sleepDuration" name="sleepDuration" min="1" max="24" step="any" required>
+
+            <label for="sleepQuality">Quality of Sleep (scale: 1-10) : <span id="sleepQualityValue">5</span></label>
+            <input type="range" id="sleepQuality" name="sleepQuality" min="1" max="10" required>
+
+            <label for="stressLevel">Stress Level (scale: 1-10) : <span id="stressLevelValue">5</span></label>
+            <input type="range" id="stressLevel" name="stressLevel" min="1" max="10" required>
+                                 
+            <button class="submit-btn" type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Update range value displays when the range input is changed
+        const sleepQualityInput = document.getElementById("sleepQuality");
+        const sleepQualityValueDisplay = document.getElementById("sleepQualityValue");
+        sleepQualityInput.addEventListener("input", () => {
+            sleepQualityValueDisplay.textContent = sleepQualityInput.value;
+        });
+
+        const stressLevelInput = document.getElementById("stressLevel");
+        const stressLevelValueDisplay = document.getElementById("stressLevelValue");
+        stressLevelInput.addEventListener("input", () => {
+            stressLevelValueDisplay.textContent = stressLevelInput.value;
+        });
+
+     
+    </script>
+</body>
+</html>

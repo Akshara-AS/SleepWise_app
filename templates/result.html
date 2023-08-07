@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SleepWise : Harnessing ML to Predict Sleep Disorders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 26px;
+            background-color: #caf0f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-height: 100%;
+            margin: 30px;
+            padding-top: 40px;
+        }
+
+        .card {
+            max-width: 500px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .result {
+            font-weight: bolder;
+            font-size: 35px;
+            color: #023e8a;
+            margin-bottom: 20px;
+        }
+
+        .result-text {
+            color: #ff0b85;
+        }
+
+        .celebration {
+            max-width: 500px;
+            padding: 30px;
+            background-color: #023e8a;
+            color: #ffffff;
+            font-size: 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin-top: 30px;
+            animation: fadeIn 1s ease-in-out, slideUp 1s ease-in-out;
+        }
+
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .info-card {
+            /* ... (styles for the information card) ... */
+            max-width: 700px;
+            padding: 30px;
+            padding-left: 50px;
+            background-color: #f7f7f7;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            margin-top: 30px; /* Adjust as needed */
+            position: relative;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .info-card h2 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #0048a6;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            margin-top: 30px;
+        }
+
+        .info-card p {
+            font-size: 18px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .info-card ul {
+            font-size: 20px; /* Increase the bullet point size */
+            color: #333;
+            margin-top: 10px;
+            padding-left: 30px; /* Increase the spacing between bullet and content */
+            list-style: none;
+        }
+
+        .info-card li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+            line-height: 24px;
+        }
+
+        .info-card li:before {
+            content: "\2022";
+            color: #ff0b85;
+            font-size: 24px; /* Increase the bullet point size */
+            position: absolute;
+            left: 0;
+            top: 5px;
+            transform: translateY(-25%);
+        }
+
+        /* Add animation on hover */
+        .info-card li:hover {
+            transform: translateX(7px);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .info-card .warning {
+            color: #c20a01; /* Warning message color */
+            font-size: 20px; /* Warning message font size */
+            display: block;
+            margin-top: 10px;
+            margin-left: 10px; /* Add margin to align the sentence with the bullet */
+        }
+
+        .info-card .warning-symbol {
+            color: #c20a01; /* Warning symbol color */
+            font-size: 24px; /* Warning symbol font size */
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="result">Result</div>
+        <h3>{{ name }} have <span class="result-text">{{ result }}</span></h3>
+    </div>
+
+    {% if result == 'Insomnia' %}
+        <!-- Display information about Insomnia -->
+        <div class="info-card">
+            <h2>Insomnia</h2>
+            <p>
+                Insomnia is a sleep disorder characterized by difficulty falling asleep or staying asleep, or waking up too early and not being able to fall back asleep. It can be caused by stress, anxiety, depression, or certain medications.
+            </p>
+            <h2>Symptoms</h2>
+            <ul>
+                <li>Difficulty falling asleep</li>
+                <li>Waking up frequently during the night</li>
+                <li>Feeling tired and not refreshed after sleep</li>
+                <li>Difficulty concentrating during the day</li>
+            </ul>
+            <h2>Prevention</h2>
+            <ul>
+                <li>Establish a regular sleep schedule</li>
+                <li>Create a relaxing bedtime routine</li>
+                <li>Avoid caffeine and electronics before bedtime</li>
+                <li>Manage stress and anxiety</li>
+                
+            </ul>
+            <span class="warning"><span class="warning-symbol">&#9888;</span> Recommended to consult with a doctor for further check-ups</span>
+        </div>
+    {% elif result == 'No Sleep Disorder' %}
+        <!-- Show colors pop up for celebrating -->
+        <div class="celebration">
+           <h2>Congratulations 🎉🥳 </h2>
+        <p>You are free from Sleep Apnea and Insomnia sleep disorders. Enjoy a good night's sleep!</p> 
+        </div>
+    {% elif result == 'Sleep Apnea' %}
+        <!-- Display information about Sleep apnea -->
+        <div class="info-card">
+            <h2>Sleep Apnea</h2>
+            <p>
+                Sleep apnea is a sleep disorder in which breathing repeatedly stops and starts during sleep. It can be of two types: obstructive sleep apnea (OSA) and central sleep apnea (CSA). OSA occurs when the throat muscles relax, while CSA happens when the brain fails to send proper signals to the muscles that control breathing.
+            </p>
+            <h2>Symptoms</h2>
+            <ul>
+                <li>Loud snoring</li>
+                <li>Episodes of breathing cessation during sleep</li>
+                <li>Gasping for air during sleep</li>
+                <li>Excessive daytime sleepiness</li>
+            </ul>
+            <h2>Prevention</h2>
+            <ul>
+                <li>Lose weight if overweight</li>
+                <li>Avoid alcohol, sedatives, and sleeping pills</li>
+                <li>Use a CPAP machine (Continuous Positive Airway Pressure) to keep airways open during sleep</li>
+                <li>Sleep on your side instead of your back</li>
+                
+            </ul>
+            <span class="warning"><span class="warning-symbol">&#9888;</span> Recommended to consult with a doctor for further check-ups</span>
+        </div>
+    {% endif %}
+</body>
+</html>
